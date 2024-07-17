@@ -1,0 +1,30 @@
+# Dependency directories
+node_modules/
+
+# Build artifacts
+dist/
+
+# Environment-specific build configuration
+src/environments/environment.prod.ts
+src/environments/environment.ts
+
+# IDE and editor specific files
+.vscode/
+.idea/
+
+# Logs and temporary files
+npm-debug.log
+yarn-error.log
+*.log
+
+# Dependency lock files
+package-lock.json
+yarn.lock
+
+# Test coverage directory
+coverage/
+
+# Personal configuration file (if applicable)
+.env
+
+.angular/
