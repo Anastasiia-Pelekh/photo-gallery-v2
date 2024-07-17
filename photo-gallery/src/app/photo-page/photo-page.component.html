@@ -1,0 +1,14 @@
+<mat-card class="single-pict-wrapper">
+  <div class="single-pict-block">
+    <img mat-card-image src="{{photoUrl}}">
+  </div>
+
+  <div class="m-auto remove-block">
+    <a class="btn-remove" 
+      routerLink="/favorites"
+      (click)="removePhoto(photoUrl)">
+      Delete from favorites
+    </a>
+  </div>
+</mat-card>
+

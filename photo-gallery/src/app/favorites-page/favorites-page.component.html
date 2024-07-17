@@ -1,0 +1,14 @@
+<div *ngIf="favoritePhotos.length;else noDataTpl"
+  class="image-block">
+  <div *ngFor="let photo of favoritePhotos" 
+    class="image"
+    [routerLink]="['/photos', photo.id]" 
+    (click)="setPhotoUrl(photo.url)">
+    <img src="{{photo.url}}">
+  </div>
+</div>
+
+<ng-template #noDataTpl>
+  <h2>You don't have any favorite photos yet</h2>
+</ng-template>
+

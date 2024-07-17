@@ -1,0 +1,31 @@
+.single-pict-wrapper {
+  margin: 0 auto 30px;
+  padding-bottom: 30px;
+  max-width: 600px;
+
+  .single-pict-block {
+    margin: 60px auto 30px;
+    height: 450px;
+
+    img {
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+
+  .remove-block {
+    max-width: 200px;
+
+    .btn-remove {
+      max-width: 185px;
+    }
+  }
+}
+
+.mat-card {
+  background-color: #fff;
+  
+  &:not([class*=mat-elevation-z]) {
+    box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+  }
+}

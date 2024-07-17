@@ -1,0 +1,18 @@
+<nav class="navbar bg-primary">
+  <h1 class="logo">
+    <a routerLink="/">Photo Gallery</a>
+  </h1>
+
+  <ul>
+    <li routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+      <a routerLink="/">Photos</a>
+    </li>
+    <li routerLinkActive="active">
+      <a routerLink="/favorites">Favorites</a>
+    </li>
+  </ul>
+</nav>
+
+<div class="container">
+  <router-outlet></router-outlet>
+</div>
