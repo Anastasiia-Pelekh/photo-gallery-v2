@@ -1,16 +1,17 @@
 import { Component, OnInit, OnDestroy, signal, HostListener } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { PhotoModel } from '../shared/interfaces';
-import { RandomPhotoService } from '../shared/services/random-photo.service';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner'
 import { CommonModule } from '@angular/common';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { PhotoModel } from '../../shared/interfaces';
+import { RandomPhotoService } from '../../shared/services/random-photo.service';
+import { SearchPhotoComponent } from '../search-photos/search-photos.component';
 
 @Component({
-  selector: 'app-home-page',
+  selector: 'private-home-page',
   templateUrl: './home-page.component.html',
   styleUrls: ['./home-page.component.scss'],
-  imports: [MatProgressSpinnerModule, CommonModule, MatTooltipModule],
+  imports: [MatProgressSpinnerModule, CommonModule, MatTooltipModule, SearchPhotoComponent],
   standalone: true
 })
 export class HomePageComponent implements OnInit, OnDestroy {

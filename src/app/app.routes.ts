@@ -1,11 +1,19 @@
 import { Routes } from '@angular/router';
-import { HomePageComponent } from './home-page/home-page.component';
-import { PhotoPageComponent } from './photo-page/photo-page.component';
-import { FavoritesPageComponent } from './favorites-page/favorites-page.component';
+import { PublicPageLayoutComponent } from './public/public-page-layout/public-layout-page.component';
+import { PrivatePageLayoutComponent } from './private/private-layout-page/private-layout-page.component';
+import { AuthGuard } from './shared/guards/auth.guard';
 
 export const routes: Routes = [
-  { path: '', component: HomePageComponent },
-  { path: 'favorites', component: FavoritesPageComponent },
-  { path: 'photos/:id', component: PhotoPageComponent },
-  { path: '**', redirectTo: '/'},
+  { 
+    path: '',
+    component: PublicPageLayoutComponent,
+    loadChildren: () => import('./public/public-page.module').then(m => m.PublicPageModule),
+  },
+  {
+    path: 'home',
+    component: PrivatePageLayoutComponent,
+    loadChildren: () => import('./private/private-page.module').then(m => m.PrivatePageModule),
+    canActivate: [AuthGuard]
+  },
+  { path: '**', redirectTo: '' },
 ];

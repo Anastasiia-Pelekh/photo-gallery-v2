@@ -1,0 +1,26 @@
+<form [formGroup]="loginForm" (ngSubmit)="login()">
+  <mat-form-field>
+    <mat-label>Email:</mat-label>
+    <input matInput formControlName="email" placeholder="Enter email"/>
+    @if (loginForm.get('email')?.invalid) {
+      <mat-error>{{errorMessage()}}</mat-error>
+    }
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Password:</mat-label>
+    <input matInput type="password" formControlName="password" placeholder="Password"/>
+    @if (loginForm.get('password')?.invalid) {
+      <mat-error>{{errorMessage()}}</mat-error>
+    }
+  </mat-form-field>
+
+  <p class="forgot-password" *ngIf="showLoginForm">
+    <span>Forgot password?</span>
+  </p>
+
+  <button class="sign-btn" type="submit">
+    @if (showLoginForm) {
+      Sign in
+    } @else { Sign Up }</button>
+</form>

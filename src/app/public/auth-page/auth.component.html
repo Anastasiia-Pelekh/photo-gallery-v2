@@ -1,0 +1,31 @@
+<div class="login">
+  <div class="login_card">
+    <div class="form_card">
+      <h1 class="form_card--title">
+        @if (isLoginForm) {
+          Login
+        } @else { Sign Up }</h1>
+      <app-login-form [showLoginForm]="isLoginForm"></app-login-form>
+      <h6 class="continue_with">Or Continue with</h6>
+
+      <div class="social_media">
+        <button class="social_media--btn" (click)="signInWithGoogle()"><img src="../../assets/images/google-icon.png" alt="google"></button>
+        <button class="social_media--btn"><img src="../../assets/images/github-icon.png" alt="github"></button>
+        <button class="social_media--btn" (click)="signInWithFacebook()"><img src="../../assets/images/facebook-icon.png" alt="facebook"></button>
+      </div>
+
+      <div class="footer">
+        @if (isLoginForm) {
+          <p>Don’t have an account yet? <a routerLink="/register" class="footer_register">
+            Sign up</a></p>
+        } @else {
+          <p>Already have an account? <a routerLink="/login" class="footer_register">
+            Log in</a></p>
+        }
+      </div>
+    </div> 
+    <div class="login_card--image">
+      <img src="../../assets/images/form-image.png">
+    </div>
+  </div>
+</div>

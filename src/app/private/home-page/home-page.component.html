@@ -1,0 +1,21 @@
+<div class="container">
+  <app-search-photo></app-search-photo>
+  <div class="image-block">
+    <div *ngFor="let photo of photoData" 
+      class="image">
+      <div class="add-to-favorite"
+        *ngIf="!photo.isFavorite"
+        (click)="addToFavorites(photo.id, photo.smallUrl); photo.isFavorite = true">
+        <img src="assets/images/add-to-favorite.png" 
+          alt="Add to favorites" 
+          matTooltip="Add to favorites"
+          matTooltipPosition="above">
+      </div>
+      <img src="{{photo.smallUrl}}" alt="{{photo?.alt_description}}">
+    </div>
+  </div>
+  
+  <div *ngIf="loader" class="spinner-block">
+    <mat-spinner [diameter]="50" color="warn"></mat-spinner>
+  </div>
+</div>

@@ -1,0 +1,28 @@
+.continue_with {
+  font-size: 15px;
+  font-weight: 100;
+  text-align: center;
+}
+
+.sign-btn {
+  width: 100%;
+  padding: 7px;
+  background: var(--primary-color);
+  border: none;
+  color: var(--white);
+  margin-top: 30px;
+  cursor: pointer;
+}
+
+mat-form-field {
+  width: 100%;
+}
+
+.forgot-password {
+  text-align: right;
+
+  span {
+    cursor: pointer;
+    color: var(--primary-color);
+  }
+}

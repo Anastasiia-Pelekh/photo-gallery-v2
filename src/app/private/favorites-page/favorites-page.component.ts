@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
-import { RandomPhotoService } from './../shared/services/random-photo.service';
-import { FavoritePhotoModel } from '../shared/interfaces';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
+import { RandomPhotoService } from '../../shared/services/random-photo.service';
+import { FavoritePhotoModel } from '../../shared/interfaces';
 
 @Component({
   selector: 'app-favorites-page',

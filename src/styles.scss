@@ -7,6 +7,8 @@
   --light-color: #f4f4f4;
   --danger-color: #dc3545;
   --success-color: #28a745;
+  --white: #fff;
+  --coral: #FFD1B0;
 }
 
 .mat-typography {
@@ -30,6 +32,7 @@ body {
   line-height: 1.6;
   background-color: #fff;
   color: #333;
+  height: 100vh;
 }
 
 a {
@@ -106,7 +109,7 @@ img {
   z-index: 1;
   width: 100%;
   opacity: 0.9;
-  margin-bottom: 20px;
+  height: 75px;
 
   ul {
     display: flex;
@@ -123,7 +126,7 @@ img {
     padding: 10px;
     margin: 0 5px;
     font-size: 18px;
-    font-weight: 600;
+    font-weight: 500;
 
     &:hover {
       color: var(--light-color);
@@ -132,6 +135,13 @@ img {
 
   .logo a {
     font-size: 22px;
+    font-weight: 600;
+  }
+
+  .login {
+    padding-left: 15px;
+    border-left: 1px solid #fff;
+    margin-left: 15px;
   }
 }
 

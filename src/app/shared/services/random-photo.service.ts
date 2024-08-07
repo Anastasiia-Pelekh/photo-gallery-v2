@@ -31,6 +31,10 @@ export class RandomPhotoService {
     );
   }
 
+  public onSearch(searchTerm: string): Observable<PhotoModel[]> {
+    return this.http.get<any>(`https://api.unsplash.com/search/photos?query=${searchTerm}&client_id=${environment.apiKey}`)
+  }
+
   public addToFavorites(id: string, url: string): void {
     const storagePhotos: FavoritePhotoModel[] = JSON.parse(localStorage.getItem('favorites') || '[]');
 

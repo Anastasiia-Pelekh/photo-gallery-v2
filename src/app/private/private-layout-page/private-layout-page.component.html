@@ -1,0 +1,19 @@
+<nav class="navbar bg-primary">
+  <h1 class="logo">
+    <a routerLink="/">Photo Gallery</a>
+  </h1>
+
+  <ul>
+    <li routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+      <a routerLink="/home">Photos</a>
+    </li>
+    <li routerLinkActive="active">
+      <a routerLink="/home/favorites">Favorites</a>
+    </li>
+    <li routerLinkActive="active" class="login">
+      <a (click)="logout()">Log out</a>
+    </li>
+  </ul>
+</nav>
+
+<router-outlet></router-outlet>
