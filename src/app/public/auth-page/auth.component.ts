@@ -6,7 +6,7 @@ import 'firebase/auth';
 import { FacebookAuthProvider, GoogleAuthProvider } from 'firebase/auth';
 import { AuthFormComponent } from './auth-form/auth-form.component';
 import { ActivatedRoute, RouterModule } from '@angular/router';
-import { AuthService } from './auth.service';
+import { AuthService } from '../../shared/services/auth.service';
 
 @Component({
   selector: 'app-auth',

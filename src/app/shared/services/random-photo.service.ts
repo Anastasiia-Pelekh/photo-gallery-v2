@@ -6,6 +6,7 @@ import { FavoritePhotoModel, PhotoModel } from '../interfaces';
 import { MatSnackBar } from '@angular/material/snack-bar'
 import { Messages } from '../messages.enum';
 import { environment } from '../../../environments/environment';
+import { ToastService } from './toast.service';
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +18,7 @@ export class RandomPhotoService {
   
   constructor(
     private http: HttpClient,
-    private matSnackBar: MatSnackBar
+    private toastService: ToastService
   ) { }
 
   public createRandomPhotos(currentPage = 1): Observable<PhotoModel[]> {
@@ -67,7 +68,7 @@ export class RandomPhotoService {
     if (storagePhotos.length) {
       storagePhotos.forEach(photo => {
         if (photo.id === id) {
-          this.setSnackBarMessage(Messages.againAdd);
+          this.toastService.showErrorToast(Messages.againAdd);
           shouldAddPhoto = false;
         }
       })
@@ -76,20 +77,12 @@ export class RandomPhotoService {
     if (shouldAddPhoto || !storagePhotos.length) {
       storagePhotos.push({id: id, url: url});
       localStorage.setItem('favorites', JSON.stringify(storagePhotos));
-      this.setSnackBarMessage(Messages.addPhoto);
+      this.toastService.showSuccessToast(Messages.addPhoto);
     }
   }
 
   public setPhotoUrl(url: string): void {
     localStorage.setItem('photo-url', url);
-  }
-  
-  public setSnackBarMessage(message: string): void {
-    this.matSnackBar?.open(message, 'Close', {
-      horizontalPosition: 'end',
-      verticalPosition: 'bottom',
-      duration: 3000,
-    })
   }
 
   public removePhoto(url: string): void {
@@ -99,7 +92,7 @@ export class RandomPhotoService {
 
     localStorage.setItem('favorites', JSON.stringify(storagePhotos));
     history.back();
-    this.setSnackBarMessage(Messages.deletePhoto);
+    this.toastService.showSuccessToast(Messages.deletePhoto);
   }
 
   public getPhotoUrl(): string {
