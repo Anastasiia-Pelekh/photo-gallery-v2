@@ -1,7 +1,7 @@
 <div class="container">
-  <app-search-photo></app-search-photo>
+  <app-search-photo (onSearchTerm)="onSearchTermUpdate($event)"></app-search-photo>
   <div class="image-block">
-    <div *ngFor="let photo of photoData" 
+    <div *ngFor="let photo of photoData$ | async" 
       class="image">
       <div class="add-to-favorite"
         *ngIf="!photo.isFavorite"

@@ -2,13 +2,16 @@
 @import '~@angular/material/prebuilt-themes/indigo-pink.css';
 
 :root {
-  --primary-color: #dc3545;
+  --primary-color: rgba(220, 53, 69, 0.9);
   --dark-color: #B4B4B8;
   --light-color: #f4f4f4;
   --danger-color: #dc3545;
   --success-color: #28a745;
   --white: #fff;
   --coral: #FFD1B0;
+  --black: #000;
+  --grey: #ccc;
+  --light-grey: #dbd8e3;
 }
 
 .mat-typography {
@@ -108,7 +111,6 @@ img {
   padding: 20px 40px;
   z-index: 1;
   width: 100%;
-  opacity: 0.9;
   height: 75px;
 
   ul {
@@ -116,7 +118,7 @@ img {
   }
 
   li.active a {
-    color: var(--dark-color);
+    color: var(--light-grey);
     font-weight: 800;
     cursor: default;
   }

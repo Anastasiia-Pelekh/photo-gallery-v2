@@ -21,7 +21,7 @@ import { FIREBASE_OPTIONS } from '@angular/fire/compat';
 
 export const appConfig: ApplicationConfig = {
   providers: [
-    provideRouter(routes, withDebugTracing()),
+    provideRouter(routes),
     provideHttpClient(),
     provideFirebaseApp(
       () => initializeApp(environment.firebaseConfig)), 

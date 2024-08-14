@@ -1,0 +1,19 @@
+<div class="search-container">
+  <form class="search-form" [formGroup]="searchForm" (ngSubmit)="onSearch()">
+    <input
+      type="text"
+      formControlName="searchTerm"
+      placeholder="Search for photos..."
+      class="search-input"
+    />
+    <button type="submit" class="search-button">Search</button>
+  </form>
+
+  <div class="category-selector">
+    <select #categorySelect [(ngModel)]="selectedCategory" (change)="onSelectCategory(categorySelect)">
+      <option *ngFor="let category of categories" [value]="category.value">
+        {{ category.label }}
+      </option>
+    </select>
+  </div>
+</div>

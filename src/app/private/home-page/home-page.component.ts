@@ -1,67 +1,113 @@
-import { Component, OnInit, OnDestroy, signal, HostListener } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { Component, OnDestroy, HostListener } from '@angular/core';
+import { Subscription, Observable, BehaviorSubject, combineLatest, map } from 'rxjs';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner'
 import { CommonModule } from '@angular/common';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { PhotoModel } from '../../shared/interfaces';
 import { RandomPhotoService } from '../../shared/services/random-photo.service';
-import { SearchPhotoComponent } from '../search-photos/search-photos.component';
+import { SearchBarComponent } from '../search-bar/search-bar.component';
 
 @Component({
   selector: 'private-home-page',
   templateUrl: './home-page.component.html',
   styleUrls: ['./home-page.component.scss'],
-  imports: [MatProgressSpinnerModule, CommonModule, MatTooltipModule, SearchPhotoComponent],
+  imports: [MatProgressSpinnerModule, CommonModule, MatTooltipModule, SearchBarComponent],
   standalone: true
 })
-export class HomePageComponent implements OnInit, OnDestroy {
-  private subscription!: Subscription;
-
+export class HomePageComponent implements OnDestroy {
   public loader: boolean = false;
-  public photoData: PhotoModel[] = [];
+  public photoData$: Observable<PhotoModel[]>;
 
-  constructor(
-    private photoService: RandomPhotoService,
-  ) {}
+  private currentPage = 1;
+  private currentSearchTerm = '';
 
-  ngOnInit(): void {
-    this.getPhoto();
+  private updatedPhotos = new BehaviorSubject<PhotoModel[]>([]);
+  private searchPhotos = new BehaviorSubject<PhotoModel[]>([]);
+  private initialPhotos = new BehaviorSubject<PhotoModel[]>([]);
+  private subscription = new Subscription();
+
+  constructor(private photoService: RandomPhotoService) {
+    const initialPhotos$ = this.photoService.createRandomPhotos().pipe(
+      map(photos => {
+        this.initialPhotos.next(photos);
+        return photos;
+      })
+    );
+    this.photoData$ = combineLatest([
+      initialPhotos$,
+      this.updatedPhotos,
+      this.searchPhotos
+    ]).pipe(
+      map(([photoData, updatedData, searchData]) => {
+        return searchData.length > 0 ? searchData : [...photoData, ...updatedData];
+      })
+    );
   }
 
-  ngOnDestroy(): void {
+  public ngOnDestroy(): void {
     this.subscription.unsubscribe();
   }
 
   @HostListener('window:scroll', ['$event'])
-  onScroll(event: Event): void {
-    const windowHeight = 'innerHeight' in window ? window.innerHeight : document.documentElement.offsetHeight;
-    const body = document.body;
-    const html = document.documentElement;
-    const docHeight = Math.max(body.scrollHeight, body.offsetHeight, html.clientHeight,  html.scrollHeight, html.offsetHeight);
+  onScroll(event: Event): void {  
+    const windowHeight = window.innerHeight;
+    const docHeight = document.documentElement.scrollHeight;
     const windowBottom = windowHeight + window.scrollY;
+
     if (windowBottom >= docHeight && !this.loader) {
       this.getMore();
     }
   }
 
-  public getPhoto(): void {
-    this.subscription = this.photoService.createRandomPhotos()
-      .subscribe(data => this.photoData = data);
-  }
-
-  public getMore(): void {
+  private getMore(): void {
     if (this.loader) { return; }
 
     this.loader = true;
+    this.currentPage++;
 
-    this.subscription = this.photoService.fetchPhotos()
-      .subscribe(data => {
-        this.photoData.push(...data);
-        this.loader = false;
-      })
+    this.subscription.add(
+      this.photoService.fetchPhotos(this.currentPage, this.currentSearchTerm)
+        .subscribe({
+          next: data => {
+            if (this.currentSearchTerm) {
+              this.searchPhotos.next([...this.searchPhotos.value, ...data]);
+            } else {
+              this.updatedPhotos.next([...this.updatedPhotos.value, ...data]);
+            }
+            this.loader = false;
+          },
+          error: () => {
+            this.loader = false;
+          }
+        })
+    );
   }
 
   public addToFavorites(id: string, url: string): void {
     this.photoService.addToFavorites(id, url);
+  }
+
+  public onSearchTermUpdate(searchTerm: string): void {
+    this.currentSearchTerm = searchTerm;
+    this.currentPage = 1;
+    this.searchPhotos.next([]);
+    this.updatedPhotos.next([]);
+
+    if (searchTerm.length === 0) {
+      this.searchPhotos.next(this.initialPhotos.value);
+    } else {
+      this.subscription.add(
+        this.photoService.onSearch(this.currentSearchTerm, this.currentPage)
+          .subscribe({
+            next: data => {
+              this.searchPhotos.next(data);
+              this.loader = false;
+            },
+            error: () => {
+              this.loader = false;
+            }
+        })
+      );
+    }
   }
 }
