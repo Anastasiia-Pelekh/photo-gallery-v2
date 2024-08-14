@@ -23,22 +23,15 @@ export class AuthService {
   public register(email: string, password: string) {
     this.afAuth.createUserWithEmailAndPassword(email, password)
       .then(userCredential => {
-        // Registration successful
-        console.log('Registration successful!', userCredential);
-        // You can redirect or do whatever you need here
       })
       .catch(error => {
         console.error('Registration error:', error);
-        // Handle errors here (show error messages, etc.)
       });
   }
 
   public login(email: string, password: string) {
     this.afAuth.signInWithEmailAndPassword(email, password)
     .then(userCredential => {
-      this.router.navigate(['/pr'])
-      console.log('Login successful!', userCredential);
-      // You can redirect or perform additional actions here
     })
     .catch(error => {
       console.error('Login error:', error);
@@ -49,12 +42,10 @@ export class AuthService {
   public logout() {
     this.afAuth.signOut()
       .then(() => {
-        console.log('Logout successful!');
-        this.router.navigate(['/home']); // Navigate to the login page or home page
+        this.router.navigate(['']);
       })
       .catch(error => {
         console.error('Logout error:', error);
-        // Handle errors if needed
       });
   }
 

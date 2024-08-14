@@ -30,3 +30,4 @@ coverage/
 .angular/
 
 .DS_Store
+src/assets/.DS_Store

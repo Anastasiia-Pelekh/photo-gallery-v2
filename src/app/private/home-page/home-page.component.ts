@@ -6,12 +6,19 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { PhotoModel } from '../../shared/interfaces';
 import { RandomPhotoService } from '../../shared/services/random-photo.service';
 import { SearchBarComponent } from '../search-bar/search-bar.component';
+import { InfiniteScrollDirective } from '../../shared/directives/load-more.directive';
 
 @Component({
   selector: 'private-home-page',
   templateUrl: './home-page.component.html',
   styleUrls: ['./home-page.component.scss'],
-  imports: [MatProgressSpinnerModule, CommonModule, MatTooltipModule, SearchBarComponent],
+  imports: [
+    MatProgressSpinnerModule, 
+    CommonModule, 
+    MatTooltipModule, 
+    SearchBarComponent, 
+    InfiniteScrollDirective
+  ],
   standalone: true
 })
 export class HomePageComponent implements OnDestroy {
@@ -48,18 +55,7 @@ export class HomePageComponent implements OnDestroy {
     this.subscription.unsubscribe();
   }
 
-  @HostListener('window:scroll', ['$event'])
-  onScroll(event: Event): void {  
-    const windowHeight = window.innerHeight;
-    const docHeight = document.documentElement.scrollHeight;
-    const windowBottom = windowHeight + window.scrollY;
-
-    if (windowBottom >= docHeight && !this.loader) {
-      this.getMore();
-    }
-  }
-
-  private getMore(): void {
+  public getMore(): void {
     if (this.loader) { return; }
 
     this.loader = true;

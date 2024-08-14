@@ -5,12 +5,13 @@ import { CommonModule } from '@angular/common';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { PhotoModel } from '../../shared/interfaces';
 import { RandomPhotoService } from '../../shared/services/random-photo.service';
+import { InfiniteScrollDirective } from '../../shared/directives/load-more.directive';
 
 @Component({
   selector: 'public-home-page',
   templateUrl: './home-page.component.html',
   styleUrls: ['./home-page.component.scss'],
-  imports: [MatProgressSpinnerModule, CommonModule, MatTooltipModule],
+  imports: [MatProgressSpinnerModule, CommonModule, MatTooltipModule, InfiniteScrollDirective],
   standalone: true
 })
 export class HomePageComponent implements OnInit, OnDestroy {
@@ -31,18 +32,6 @@ export class HomePageComponent implements OnInit, OnDestroy {
     this.subscription.unsubscribe();
   }
 
-  @HostListener('window:scroll', ['$event'])
-  onScroll(event: Event): void {
-    const windowHeight = 'innerHeight' in window ? window.innerHeight : document.documentElement.offsetHeight;
-    const body = document.body;
-    const html = document.documentElement;
-    const docHeight = Math.max(body.scrollHeight, body.offsetHeight, html.clientHeight,  html.scrollHeight, html.offsetHeight);
-    const windowBottom = windowHeight + window.scrollY;
-    if (windowBottom >= docHeight && !this.loader) {
-      this.getMore();
-    }
-  }
-
   public getPhoto(): void {
     this.subscription = this.photoService.createRandomPhotos()
       .subscribe(data => this.photoData = data);
@@ -58,9 +47,5 @@ export class HomePageComponent implements OnInit, OnDestroy {
         this.photoData.push(...data);
         this.loader = false;
       })
-  }
-
-  public addToFavorites(id: string, url: string): void {
-    this.photoService.addToFavorites(id, url);
   }
 }

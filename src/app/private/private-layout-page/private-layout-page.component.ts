@@ -13,6 +13,8 @@ export class PrivatePageLayoutComponent {
   constructor(private authService: AuthService) {}
 
   public logout(): void {
+    console.log('logout');
+    
     this.authService.logout();
   }
 }

@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container" appInfiniteScroll (scrolled)="getMore()">
   <app-search-photo (onSearchTerm)="onSearchTermUpdate($event)"></app-search-photo>
   <div class="image-block">
     <div *ngFor="let photo of photoData$ | async" 
