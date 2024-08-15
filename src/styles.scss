@@ -56,6 +56,7 @@ img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  cursor: pointer;
 }
 
 .container {
@@ -114,6 +115,7 @@ img {
 
   ul {
     display: flex;
+    align-items: center;
   }
 
   li.active a {
@@ -139,10 +141,20 @@ img {
     font-weight: 600;
   }
 
-  .login {
+  .login,
+  .logout {
     padding-left: 15px;
     border-left: 1px solid #fff;
     margin-left: 15px;
+
+    a {
+      display: flex;
+      align-items: center;
+    }
+  
+    &-btn {
+      padding-right: 10px;
+    }
   }
 }
 

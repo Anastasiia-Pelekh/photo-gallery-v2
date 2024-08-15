@@ -2,7 +2,12 @@
   <div class="image-block">
     <div *ngFor="let photo of photoData" 
       class="image">
-      <img src="{{photo.smallUrl}}" alt="{{photo?.alt_description}}">
+      <img src="{{photo.smallUrl}}" alt="{{photo?.alt_description}}"
+        alt="login to be able to interact with the photo" 
+        matTooltip="Login to be able to interact with the photo."
+        matTooltipPosition="above"
+        class="image-item"
+      >
     </div>
   </div>
   

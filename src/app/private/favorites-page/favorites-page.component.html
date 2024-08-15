@@ -1,15 +1,15 @@
 <div class="container">
-  <div *ngIf="(favoritePhotos$ | async) as favoritePhotos; else noDataTpl"
-  class="image-block">
-    <div *ngFor="let photo of favoritePhotos" 
-      class="image"
-      [routerLink]="['/photos', photo.id]">
-      <img src="{{photo.url}}">
-    </div>
+  <div *ngIf="(favoritePhotos$ | async) as favoritePhotos"
+    class="image-block">
+    @if (favoritePhotos.length) {
+      <div *ngFor="let photo of favoritePhotos" 
+        class="image"
+        [routerLink]="['/photos', photo.id]">
+        <img src="{{photo.url}}">
+      </div>
+    } @else {
+      <h2>You don't have any favorite photos yet.</h2>
+    }
   </div>
-
-  <ng-template #noDataTpl>
-    <h2>You don't have any favorite photos yet.</h2>
-  </ng-template>
 </div>
 

@@ -10,8 +10,11 @@
     <li routerLinkActive="active">
       <a routerLink="/home/favorites">Favorites</a>
     </li>
-    <li routerLinkActive="active" class="login">
-      <a (click)="logout()">Log out</a>
+    <li routerLinkActive="active" class="logout">
+      <a (click)="logout()">
+        <span class="logout-btn">Log out</span>
+        <mat-icon>logout</mat-icon>
+      </a>
     </li>
   </ul>
 </nav>
