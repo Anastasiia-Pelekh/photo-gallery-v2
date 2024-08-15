@@ -13,10 +13,10 @@ export class PhotoPageComponent {
   public photoUrl: string = '';
 
   constructor(private photoService: RandomPhotoService) { 
-    this.photoUrl = this.photoService.getPhotoUrl();
+    // this.photoUrl = this.photoService.getPhotoUrl();
   }
 
-  public removePhoto(url: string): void {
-    this.photoService.removePhoto(url);
-  }
+  // public removePhoto(url: string): void {
+  //   this.photoService.removePhoto(url);
+  // }
 }

@@ -7,6 +7,7 @@ import { PhotoModel } from '../../shared/interfaces';
 import { RandomPhotoService } from '../../shared/services/random-photo.service';
 import { SearchBarComponent } from '../search-bar/search-bar.component';
 import { InfiniteScrollDirective } from '../../shared/directives/load-more.directive';
+import { FavoritePhotoService } from '../../shared/services/favorite-photo.service';
 
 @Component({
   selector: 'private-home-page',
@@ -33,7 +34,10 @@ export class HomePageComponent implements OnDestroy {
   private initialPhotos = new BehaviorSubject<PhotoModel[]>([]);
   private subscription = new Subscription();
 
-  constructor(private photoService: RandomPhotoService) {
+  constructor(
+    private photoService: RandomPhotoService,
+    private favoritePhotoService: FavoritePhotoService
+  ) {
     const initialPhotos$ = this.photoService.createRandomPhotos().pipe(
       map(photos => {
         this.initialPhotos.next(photos);
@@ -80,7 +84,9 @@ export class HomePageComponent implements OnDestroy {
   }
 
   public addToFavorites(id: string, url: string): void {
-    this.photoService.addToFavorites(id, url);
+    this.subscription.add(
+      this.favoritePhotoService.addToFavorites({ id, url }).subscribe()
+    )
   }
 
   public onSearchTermUpdate(searchTerm: string): void {
