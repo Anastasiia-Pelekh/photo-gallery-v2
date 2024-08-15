@@ -14,7 +14,8 @@ export class ToastService {
     this.matSnackBar.openFromComponent(ToastComponent, {
       data: { message, type: 'success' },
       panelClass: 'success-toast',
-      horizontalPosition: 'end'
+      horizontalPosition: 'end',
+      duration: 3500
     });
   }
 
@@ -22,7 +23,8 @@ export class ToastService {
     this.matSnackBar.openFromComponent(ToastComponent, {
       data: { message, type: 'error' },
       panelClass: 'error-toast',
-      horizontalPosition: 'end'
+      horizontalPosition: 'end',
+      duration: 3500
     });
   }
 
@@ -30,7 +32,8 @@ export class ToastService {
     this.matSnackBar.openFromComponent(ToastComponent, {
       data: { message, type: 'info' },
       panelClass: 'error-toast',
-      horizontalPosition: 'end'
+      horizontalPosition: 'end',
+      duration: 3500
     });
   }
 }
