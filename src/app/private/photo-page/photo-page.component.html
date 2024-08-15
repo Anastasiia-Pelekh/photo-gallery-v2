@@ -1,0 +1,15 @@
+<mat-card class="single-pict-wrapper" *ngIf="(photoUrl$ | async) as photoUrl">
+  <div class="single-pict-block">
+    <img mat-card-image src="{{photoUrl}}">
+  </div>
+
+  <div class="m-auto remove-block">
+    <a class="btn-remove" 
+      routerLink="home/favorites"
+      (click)="removePhoto(photoUrl)"
+    >
+      Remove from favorites
+    </a>
+  </div>
+</mat-card>
+

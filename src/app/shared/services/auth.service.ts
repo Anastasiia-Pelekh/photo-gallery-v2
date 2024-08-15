@@ -4,7 +4,7 @@ import { MatSnackBar } from '@angular/material/snack-bar'
 import { Router } from '@angular/router';
 import { FacebookAuthProvider, GoogleAuthProvider } from 'firebase/auth';
 import firebase from 'firebase/compat/app';
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -69,5 +69,11 @@ export class AuthService {
       .catch((error) => {
         console.error('Error during Facebook sign-in:', error);
       });
+  }
+
+  public isAuthenticated(): Observable<boolean> {
+    return this.user$.pipe(
+      map(user => !!user)
+    );
   }
 }

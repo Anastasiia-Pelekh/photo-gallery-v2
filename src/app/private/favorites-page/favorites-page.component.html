@@ -4,7 +4,7 @@
     @if (favoritePhotos.length) {
       <div *ngFor="let photo of favoritePhotos" 
         class="image"
-        [routerLink]="['/photos', photo.id]">
+        [routerLink]="['/home/photos', photo.id]">
         <img src="{{photo.url}}">
       </div>
     } @else {

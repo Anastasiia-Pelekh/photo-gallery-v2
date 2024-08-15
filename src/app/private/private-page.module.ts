@@ -9,7 +9,11 @@ const routes: Routes = [
   {
     path: 'favorites',
     loadComponent: () => import('./favorites-page/favorites-page.component').then(c => c.FavoritesPageComponent),
-  }
+  },
+  {
+    path: 'photos/:id',
+    loadComponent: () => import('./photo-page/photo-page.component').then(c => c.PhotoPageComponent),
+  },
 ];
 
 @NgModule({
