@@ -43,6 +43,10 @@ export class AuthComponent implements OnInit, OnDestroy {
     this.authService.signInWithGoogle();
   }
 
+  public signInWithGithub() {
+    this.authService.signInWithGitHub();
+  }
+
   public signInWithFacebook() {
     this.authService.signInWithFacebook();
   }

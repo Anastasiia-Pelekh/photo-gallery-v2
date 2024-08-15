@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { MatSnackBar } from '@angular/material/snack-bar'
 import { Router } from '@angular/router';
-import { FacebookAuthProvider, GoogleAuthProvider } from 'firebase/auth';
+import { FacebookAuthProvider, GithubAuthProvider, GoogleAuthProvider } from 'firebase/auth';
 import firebase from 'firebase/compat/app';
 import { map, Observable } from 'rxjs';
 
@@ -46,6 +46,17 @@ export class AuthService {
       })
       .catch(error => {
         console.error('Logout error:', error);
+      });
+  }
+
+  signInWithGitHub() {
+    const provider = new GithubAuthProvider();
+    this.afAuth.signInWithPopup(provider)
+      .then((result) => {
+        this.router.navigate(['/home']);
+      })
+      .catch((error) => {
+        console.error('Error during Github sign-in:', error);
       });
   }
 
