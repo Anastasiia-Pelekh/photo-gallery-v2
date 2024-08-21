@@ -4,9 +4,9 @@ node_modules/
 # Build artifacts
 dist/
 
-# Environment-specific build configuration
-src/environments/environment.local.ts
+# Ignore environment files
 src/environments/environment.ts
+src/environments/environment.local.ts
 
 # IDE and editor specific files
 .vscode/
