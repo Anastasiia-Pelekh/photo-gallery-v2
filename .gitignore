@@ -5,7 +5,7 @@ node_modules/
 dist/
 
 # Environment-specific build configuration
-src/environments/environment.prod.ts
+src/environments/environment.local.ts
 src/environments/environment.ts
 
 # IDE and editor specific files
